@@ -11,8 +11,8 @@
     <em>Link to Coffeeine is to be announced!</em>
 </p>
 <h1 align="center">
-    <em><strong>This repository is made with love and a little caffeeine by : </br>
-                Ricardo Palungguk Natama - 2206082700 - PBP C</strong><em>
+    <em><strong>This repository is made with love and a little caffeeine by </br>
+                Ricardo Palungguk Natama - 2206082700 - PBP C</strong></em>
 </h1>
 
 <details>
@@ -20,10 +20,12 @@
 
 # Tugas 7 PBP
 ## Soal :
-
-wow
+1. Apa perbedaan utama antara _stateless_ dan _stateful_ widget dalam konteks pengembangan aplikasi Flutter?
+2. Sebutkan seluruh _widget_ yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing.
+3. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)
 
 ## Jawaban :
+
 
 ## Bonus Tugas 7
 
