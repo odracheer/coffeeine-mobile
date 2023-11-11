@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:coffeeine/widgets/left_drawer.dart';
+import 'package:coffeeine/widgets/globals.dart' as globals;
+
+class Coffee {
+  late String name;
+  late int price;
+  late int amount;
+  late String description;
+
+  Coffee({required this.name, required this.price, required this.amount, required this.description});
+}
 
 class CoffeeFormPage extends StatefulWidget {
     const CoffeeFormPage({super.key});
@@ -171,6 +181,8 @@ class _CoffeeFormPageState extends State<CoffeeFormPage> {
                                   );
                                 },
                               );
+                              var data = Coffee(name: _name, price: _price, amount: _amount, description: _description);
+                              globals.coffeeList.add(data);
                               _formKey.currentState!.reset();
                             }
                           },

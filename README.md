@@ -257,3 +257,22 @@ Saya telah menambahkan warna-warna yang berbeda untuk setiap tombol `Lihat Item`
 * Jain, S. (2021, August 5). _Difference Between Stateless and Stateful Widget in Flutter_. GeeksforGeeks. Retrieved November 8, 2023, from https://www.geeksforgeeks.org/difference-between-stateless-and-stateful-widget-in-flutter/
 
 </details>
+
+<details>
+
+<summary>Tugas 8 PBP</summary>
+
+# Tugas 8 PBP
+## Soal :
+1. Jelaskan perbedaan antara `Navigator.push()` dan `Navigator.pushReplacement()`, disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!
+2. Jelaskan masing-masing _layout_ widget pada Flutter dan konteks penggunaannya masing-masing!
+3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!
+4. Bagaimana penerapan _clean architecture_ pada aplikasi Flutter?
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)
+
+## Jawaban :
+1. 
+
+## Referensi Tugas 8
+
+</details>

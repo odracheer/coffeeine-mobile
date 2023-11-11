@@ -1,3 +1,4 @@
+import 'package:coffeeine/screens/show_coffee.dart';
 import 'package:flutter/material.dart';
 import 'package:coffeeine/widgets/left_drawer.dart';
 import 'package:coffeeine/screens/coffee_form.dart';
@@ -92,7 +93,13 @@ class ShopCard extends StatelessWidget {
             Navigator.push(
                   context, 
                   MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
-              ));
+            ));
+          }
+          else if (item.name == "Lihat Item") {
+            Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const ShowCoffeePage(),
+            ));
           }
         },
         child: Container(

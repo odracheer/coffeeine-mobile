@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:coffeeine/screens/menu.dart';
 import 'package:coffeeine/screens/coffee_form.dart';
+import 'package:coffeeine/screens/show_coffee.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -49,6 +50,17 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => MyHomePage(),
                   ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.checklist),
+            title: const Text('Lihat Kopi'),
+            // Bagian redirection ke ShowCoffeePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const ShowCoffeePage(),
+              ));
             },
           ),
           ListTile(
