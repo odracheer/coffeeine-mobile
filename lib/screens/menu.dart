@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:coffeeine/widgets/left_drawer.dart';
+import 'package:coffeeine/screens/coffee_form.dart';
+import 'package:coffeeine/widgets/shop_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
@@ -17,7 +20,11 @@ class MyHomePage extends StatelessWidget {
         title: const Text(
           'Coffeeine',
         ),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
+        // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
+      drawer: const LeftDrawer(),
 
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
@@ -35,6 +42,7 @@ class MyHomePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
@@ -79,6 +87,13 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}")));
+          
+          if (item.name == "Tambah Item") {
+            Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
+              ));
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
@@ -105,12 +120,4 @@ class ShopCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class ShopItem {
-    final String name;
-    final IconData icon;
-    final Color color;
-
-    ShopItem(this.name, this.icon, this.color);
 }
