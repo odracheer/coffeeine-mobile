@@ -271,8 +271,109 @@ Saya telah menambahkan warna-warna yang berbeda untuk setiap tombol `Lihat Item`
 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial)
 
 ## Jawaban :
-1. 
+1. `Navigator.push()` dan `Navigator.pushReplacement()` adalah dua metode yang digunakan dalam Flutter untuk navigasi antar halaman. Meskipun mirip, keduanya memiliki perbedaan.
+    
+    * `Navigator.push()`<br>
+      `Navigator.push()` digunakan untuk menambahkan suatu _route_ ke dalam _stack route_ yang dikelola oleh `Navigator`. Dengan kata lain, _route_ yang baru ditambahkan akan berada di posisi paling atas _stack_ sehingga berada di atas _route_ halaman sebelumnya. Setelah itu, halaman yang baru akan ditampilkan dan pengguna dapat kembali ke halaman sebelumnya dengan menekan tombol `Back`. Contoh penggunaannya adalah ketika pengguna ingin melakukan sesuatu di halaman berikut namun masih ingin kembali ke halaman sebelumnya (seperti melihat detail _item_ ke halaman baru pada saat pengguna sedang berada di halaman _list item_), `Navigator.push()` cocok untuk digunakan. Implementasinya dalam tugas ini:
+      ```
+      if (item.name == "Tambah Item") {
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
+        ));
+      }
+      ```
+
+    * `Navigator.pushReplacement()` <br>
+      `Navigator.pushReplacement()` digunakan untuk menghapus _route_ yang sedang ditampilkan ke pengguna dan menggantinya dengan _route_ baru yang akan ditampilkan ke pengguna. Oleh karena itu, _route_ lama yang dikelola `Navigator` di _stack_ akan digantikan secara langsung oleh _route_ baru tanpa mengubah kondisi elemen _stack_ yang berada di bawahnya. Contoh penggunaannya adalah ketika pengguna sudah menyelesaikan tugas pada suatu halaman, maka pengguna langsung berganti ke halaman baru tanpa kembali ke halaman sebelumnya (seperti melakukan _logout_ dari suatu aplikasi). Implementasinya dalam tugas ini:
+      ```
+      onTap: () {
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(builder: (context) => const ShowCoffeePage(),
+        ));
+      },
+      ``` 
+
+<br>
+
+2. Di Flutter, _layout_ widget digunakan untuk mengatur tata letak atau susunan antar elemen di dalam widget tree. Berikut adalah beberapa layout widgets utama beserta konteks penggunaannya:
+
+    * `Container`: `Container` adalah _layout_ widget serbaguna yang dapat menahan dan mengatur ukuran, _padding_, dan _margin_. Widget ini dapat digunakan sebagai wadah umum untuk elemen-elemen lainnya.
+
+    * `Row` dan `Column`: `Row` dan `Column` digunakan untuk menyusun widget secara horizontal (`Row`) atau vertikal (`Column`). Kedua widget ini cocok digunakan untuk mengatur elemen secara sejajar.
+
+    * `ListView`: `ListView` digunakan ketika kita memiliki daftar item yang mungkin lebih panjang daripada yang dapat ditampilkan di layar. Widget ini bahkan mendukung _scrolling_ secara otomatis.
+
+    * `GridView`: `GridView` digunakan untuk menampilkan elemen dalam bentuk grid. Ini berguna untuk menampilkan koleksi _item_ dalam susunan baris dan kolom.
+
+    * `Stack`: `Stack` memungkinkan kita untuk menumpuk elemen-elemen di atas satu sama lain. Widget ini cocok digunakan untuk membuat _user interface_ yang kompleks.
+
+    * `Expanded`: `Expanded` digunakan untuk memberikan ukuran tambahan pada _child_ widget dalam `Row`, `Column`, atau `Flex`. Ini memungkinkan _child_ widget mengisi ruang yang tersedia secara proporsional.
+
+    * `SizedBox`: `SizedBox` memungkinkan kita untuk menetapkan lebar, tinggi, atau keduanya pada _child_ widgetnya. Widget ini sering digunakan untuk memberikan jarak atau membatasi ukuran widget.
+
+    * `Wrap`: `Wrap` membantu kita untuk menampilkan daftar _child_ widget secara otomatis mengalir ke baris atau kolom berikutnya jika tidak ada ruang cukup. Widget ini sangat berguna untuk tag atau chip yang jumlahnya dinamis dan perlu dibungkus ke baris selanjutnya.
+
+<br>
+
+3. Pada tugas ini, elemen-elemen input yang saya pakai melibatkan penggunaan `TextFormField` di form. Berikut adalah elemen-elemen input yang terdapat dalam kode saya:
+
+    * **Nama Item (`_name`)**<br>
+    `TextFormField` digunakan untuk mengambil input nama item. Lalu, `onChanged` digunakan untuk memperbarui variabel `_name` setiap kali nilai berubah. `validator` memastikan bahwa nilai tidak kosong.
+
+    * **Harga (`_price`)**<br>
+    `TextFormField` digunakan untuk mengambil input harga. `onChanged` digunakan untuk memperbarui variabel `_price` setiap kali nilai berubah. `validator` memastikan bahwa nilai tidak kosong dan merupakan angka.
+
+    * **Jumlah (`_amount`)**<br>
+    `TextFormField` digunakan untuk mengambil input jumlah. `onChanged` digunakan untuk memperbarui variabel `_amount` setiap kali nilai berubah. `validator` memastikan bahwa nilai tidak kosong dan merupakan angka.
+
+    * **Deskripsi (`_description`)** <br>
+    `TextFormField` digunakan untuk mengambil input deskripsi. `onChanged` digunakan untuk memperbarui variabel `_description` setiap kali nilai berubah. `validator` memastikan bahwa nilai tidak kosong.
+
+<br>
+
+4. _Clean Architecture_ merupakan sebuah konsep arsitektur perangkat lunak yang bertujuan untuk menyusun kode ke dalam beberapa lapisan dengan maksud agar kode menjadi lebih terstruktur, mudah dipahami, diuji, dan dimodifikasi. Ketika diterapkan pada aplikasi Flutter, _Clean Architecture_ mengikuti prinsip-prinsip berikut:
+
+    * **Pemisahan Kode Menjadi Beberapa Lapisan** <br>
+    Kode dapat diubah menjadi beberapa lapisan agar memudahkan kita dalam melakukan pengerjaan. Berikut adalah pembagian _layer_ yang umumnya digunakan dalam penerapan _Clean Architecture_:
+      - Presentasi (_Presentation Layer_): Berisi kode terkait tampilan aplikasi seperti widget dan manajemen status.
+      - Domain (_Domain Layer_): Memuat kode yang berkaitan dengan logika bisnis aplikasi, seperti _use case_ dan model.
+      - Data (_Data Layer_): Menyimpan kode terkait pengambilan dan penyimpanan data, seperti _repository_ dan sumber data.
+
+    * **Penggunaan _Dependency Inversion_** <br>
+    _Dependency Inversion_ adalah salah satu prinsip desain dalam _Clean Architecture_ yang mengajarkan bahwa modul tingkat atas tidak boleh bergantung pada modul tingkat bawah. Sebaliknya, keduanya seharusnya bergantung pada abstraksi (_interface_ atau kelas abstrak). Prinsip ini berguna untuk memisahkan ketergantungan, meningkatkan fleksibilitas, dan membuat kode lebih mudah dipelihara dan diuji.
+
+    * **Penggunaan _Interface_** <br>
+    _Interface_ adalah suatu kontrak untuk mendefinisikan perilaku suatu kelas. Penggunaan _interface_ berguna untuk memisahkan implementasi dan definisi sehingga memudahkan pengujian dan modifikasi.
+
+    * **Penggunaan _Unit Test_** <br>
+    Penggunaan _unit test_ penting dalam _Clean Architecture_. Penggunaan _unit test_ memungkinkan kita untuk menguji kode secara terpisah di setiap lapisan. Manfaat dari hal ini adalah memastikan bahwa setiap lapisan berfungsi dengan baik dan sesuai dengan kebutuhan.
+
+    * **Prinsip _Single Responsibility_** <br>
+    Penerapan prinsip ini penting dalam _Clean Architecture_ karena setiap kelas harus memiliki tanggung jawab tunggal dan pasti memiliki alasan untuk berubah. Hal ini berguna untuk membantu dalam memelihara dan menguji kode.
+
+    * **Menggunakan _Dependency Injection_** <br>
+    _Dependency Injection_ adalah sebuah teknik yang digunakan untuk memasukkan objek yang dibutuhkan oleh suatu kelas melalui konstruktor atau setter, sehingga kelas tersebut tidak perlu membuat objek tersebut sendiri.
+
+    * **Penggunaan _Use Case_** <br>
+    Di bagian _domain layer_, kita bisa menggunakan _use case_ yang menguraikan tindakan-tindakan yang dapat dilakukan di aplikasi kita. Setiap _use case_ mencerminkan satu aksi khusus dan berinteraksi dengan repositori sehingga hal ini memudahkan kita untuk memahami kode yang dibuat.
+
+    * **Menerapkan _Modularity_** <br>
+    Arti _modularity_ dalam konteks ini adalah memecah aplikasi menjadi modul atau paket yang terpisah berdasarkan fitur atau fungsi. Penerapan _modularity_ dalam aplikasi untuk mendukung manajemen dependensi dan menjaga kebersihan kode.
+
+<br>
+
+5. 
+
+<br>
+
+## Bonus Tugas 8
+Saya telah mengerjakan bonus dengan membuat beberapa _file_ dart tambahan, yaitu `show_coffee.dart` dan `globals.dart`. Di dalam `globals.dart`, terdapat `List` yang digunakan untuk menampung seluruh model `Coffee` yang pernah dibuat saat melakukan submit _form_ di `coffee_form.dart`. Tampilan _item_ yang sudah dibuat dapat diakses dengan melakukan klik terhadap `Lihat Item` di _Left Drawer_ atau halaman utama.
 
 ## Referensi Tugas 8
+* _Layout widgets | Flutter._ (n.d.). Flutter documentation. Retrieved November 11, 2023, from https://docs.flutter.dev/ui/widgets/layout
+
+* Khan, S. (n.d.). _Flutter — Clean Architecture. Clean Architecture is a software design… | by Samra Khan._ Medium. Retrieved November 12, 2023, from https://medium.com/@samra.sajjad0001/flutter-clean-architecture-5de5e9b8d093
 
 </details>
