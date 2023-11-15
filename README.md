@@ -364,9 +364,358 @@ Saya telah menambahkan warna-warna yang berbeda untuk setiap tombol `Lihat Item`
 
 <br>
 
-5. 
+5. Untuk mengimplementasikan _checklist_ di atas secara _step-by-step_, saya akan menjabarkan setiap poin satu per satu.
+    * **Membuat minimal satu halaman baru pada aplikasi, yaitu halaman formulir tambah item baru**<br>
+      Pertama-tama, saya membuat direktori baru dengan nama `screens` dan membuat _file_ dart baru bernama `coffee_form.dart` di dalamnya. Lalu, saya membuat _stateful_ widget bernama `CoffeeFormPage`. Setelah itu, saya membuat form dengan global key dengan menambahkan `final _formKey = GlobalKey<FormState>();` serta elemen input yang dibutuhkan, yaitu `name`, `price`, `amount`, dan `description`. Untuk menyempurnakan, saya membuat form dalam _body_ `Scaffold` dan menambahkan validasi untuk semua elemen input. Kemudian, saya menambahkan tombol `Save` yang akan menampilkan dialog ketika berhasil disimpan. Berikut hasil akhirnya:
+      ```
+      import 'package:flutter/material.dart';
+      import 'package:coffeeine/widgets/left_drawer.dart';
+      import 'package:coffeeine/widgets/globals.dart' as globals;
 
-<br>
+      class Coffee {
+        late String name;
+        late int price;
+        late int amount;
+        late String description;
+
+        Coffee({required this.name, required this.price, required this.amount, required this.description});
+      }
+
+      class CoffeeFormPage extends StatefulWidget {
+          const CoffeeFormPage({super.key});
+
+          @override
+          State<CoffeeFormPage> createState() => _CoffeeFormPageState();
+      }
+
+      class _CoffeeFormPageState extends State<CoffeeFormPage> {
+          final _formKey = GlobalKey<FormState>();
+          String _name = "";
+          int _price = 0;
+          int _amount = 0;
+          String _description = "";
+
+          @override
+          Widget build(BuildContext context) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Center(
+                    child: Text(
+                      'Add Your Coffee!',
+                    ),
+                  ),
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                ),
+                drawer: const LeftDrawer(),
+                body: Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Nama Item",
+                                labelText: "Nama Item",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  _name = value!;
+                                });
+                              },
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Nama tidak boleh kosong!";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Harga",
+                                labelText: "Harga",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                              onChanged: (String? value) {
+                                setState(() {
+                                _price = int.parse(value!);
+                                });
+                              },
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Harga tidak boleh kosong!";
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return "Harga harus berupa angka!";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Jumlah",
+                                labelText: "Jumlah",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                              onChanged: (String? value) {
+                                setState(() {
+                                _amount = int.parse(value!);
+                                });
+                              },
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Jumlah tidak boleh kosong!";
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return "Jumlah harus berupa angka!";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                hintText: "Deskripsi",
+                                labelText: "Deskripsi",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  _description = value!;
+                                });
+                              },
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Deskripsi tidak boleh kosong!";
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(const Color.fromARGB(255, 250, 151, 4)),
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text('Kopi anda berhasil tersimpan!'),
+                                          content: SingleChildScrollView(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text('Nama: $_name'),
+                                                Text('Harga: $_price'),
+                                                Text('Jumlah: $_amount'),
+                                                Text('Deskripsi: $_description'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              child: const Text('OK'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    var data = Coffee(name: _name, price: _price, amount: _amount, description: _description);
+                                    globals.coffeeList.add(data);
+                                    _formKey.currentState!.reset();
+                                  }
+                                },
+                                child: const Text(
+                                  "Save",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]
+                      ),
+                    ),
+                  ),
+                );
+          }
+      }
+      ```
+
+    <br>
+
+    * **Mengarahkan pengguna ke halaman form tambah item baru ketika menekan tombol `Tambah Item` pada halaman utama.** <br>
+    Untuk mengarahkan pengguna ke halaman form dari halaman utama, saya menambahkan fungsi dari widget `Navigator` yaitu `Navigator.push()` untuk menambahkan halaman baru ke dalam tumpukan navigasi di bagian onTap dalam _file_ `menu.dart`. Berikut kodenya: <br>
+      ```
+      if (item.name == "Tambah Item") {
+        Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
+        ));
+      }
+      ```
+        
+    <br>
+
+    * **Memunculkan data sesuai isi dari formulir yang diisi dalam sebuah `pop-up` setelah menekan tombol `Save` pada halaman formulir tambah item baru.** <br>
+    Untuk memunculkan data sesuai isi dari formulir yang diisi dalam sebuah `pop-up`, saya memanfaatkan fungsi onPressed() milik widget `ElevatedButton` di _file_ `coffee_form.dart`. Lalu, saya melakukan validasi currentState. Jika semua input valid, maka dia akan memunculkan dialog `pop-up` berisi semua data formulir. Berikut implementasinya: <br>
+      ```
+      ...
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Kopi anda berhasil tersimpan!'),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text('Nama: $_name'),
+                      Text('Harga: $_price'),
+                      Text('Jumlah: $_amount'),
+                      Text('Deskripsi: $_description'),
+                    ],
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+          var data = Coffee(name: _name, price: _price, amount: _amount, description: _description);
+          globals.coffeeList.add(data);
+          _formKey.currentState!.reset();
+        }
+      },
+      ...
+      ```
+
+    <br>
+
+    * **Membuat sebuah drawer pada aplikasi.** <br>
+    Selain membuat direktori baru `screens`, saya juga menambahkan direktori baru `widgets` dan menambahkan _file_ dart baru dengan nama `left_drawer.dart`. Setelah itu, saya membuat class `LeftDrawer` yang merupakan `stateless `widget. Lalu, saya melakukan build _drawer_ dan menambahkan ListTile untuk menyimpan menu-menu yang akan ditampilkan di _drawer_. Tidak lupa saya menggunakan widget `Navigator` untuk mengarahkan pengguna ke halaman yang diinginkan. Berikut hasil akhirnya: <br>
+      ```
+      import 'package:flutter/material.dart';
+      import 'package:coffeeine/screens/menu.dart';
+      import 'package:coffeeine/screens/coffee_form.dart';
+      import 'package:coffeeine/screens/show_coffee.dart';
+
+      class LeftDrawer extends StatelessWidget {
+        const LeftDrawer({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+          return Drawer(
+            child: ListView(
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Coffeeine',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(10)),
+                      Text("Need caffeine? Time for Coffeeine!",
+                          style: TextStyle(
+                            
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal
+                          ),
+                          textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+
+                ListTile(
+                  leading: const Icon(Icons.home_outlined),
+                  title: const Text('Halaman Utama'),
+                  // Bagian redirection ke MyHomePage
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyHomePage(),
+                        ));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.checklist),
+                  title: const Text('Lihat Kopi'),
+                  // Bagian redirection ke ShowCoffeePage
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const ShowCoffeePage(),
+                    ));
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.add_shopping_cart),
+                  title: const Text('Tambah Item'),
+                  // Bagian redirection ke CoffeeFormPage
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
+                    ));
+                  },
+                ),
+              ],
+            ),
+          );
+        }
+      }
+      ```
 
 ## Bonus Tugas 8
 Saya telah mengerjakan bonus dengan membuat beberapa _file_ dart tambahan, yaitu `show_coffee.dart` dan `globals.dart`. Di dalam `globals.dart`, terdapat `List` yang digunakan untuk menampung seluruh model `Coffee` yang pernah dibuat saat melakukan submit _form_ di `coffee_form.dart`. Tampilan _item_ yang sudah dibuat dapat diakses dengan melakukan klik terhadap `Lihat Item` di _Left Drawer_ atau halaman utama.
