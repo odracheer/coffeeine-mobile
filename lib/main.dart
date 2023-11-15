@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:coffeeine/menu.dart';
+import 'package:coffeeine/screens/menu.dart';
 
 
 void main() {
