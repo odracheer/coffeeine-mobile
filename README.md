@@ -726,3 +726,75 @@ Saya telah mengerjakan bonus dengan membuat beberapa _file_ dart tambahan, yaitu
 * Khan, S. (n.d.). _Flutter — Clean Architecture. Clean Architecture is a software design… | by Samra Khan._ Medium. Retrieved November 12, 2023, from https://medium.com/@samra.sajjad0001/flutter-clean-architecture-5de5e9b8d093
 
 </details>
+
+<details>
+<summary>Tugas 9 PBP</summary>
+
+# Tugas 9 PBP
+## Soal :
+1. Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+2. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa _instance_ CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+3. Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+4. Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+5. Sebutkan seluruh _widget_ yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.
+6. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_! (bukan hanya sekadar mengikuti tutorial).
+
+## Jawaban :
+1. Di dalam aplikasi Flutter, kita dapat melakukan pengambilan data JSON tanpa membuat model terlebih dahulu. Pendekatan ini menggunakan tipe data Dart dengan parsing yang dinamis, seperti `Map<String, dynamic>`, untuk mewakili struktur JSON. Namun, ada beberapa kelebihan dan kekurangan yang perlu dipertimbangkan. Kelebihan dari pendekatan _parsing_ JSON secara dinamis adalah fleksibilitas yang diberikannya. Dengan metode ini, kita tidak perlu membuat model yang sesuai dengan struktur JSON, memungkinkan adaptasi lebih mudah jika struktur data berubah atau jika hanya sebagian kecil dari data yang dibutuhkan. Selain itu, pendekatan ini dapat lebih cepat diimplementasikan, khususnya untuk aplikasi yang hanya melakukan panggilan API sederhana tanpa kebutuhan kompleks terkait tipe data.
+  
+    Namun, terdapat beberapa kekurangan yang perlu dipertimbangkan. Pertama, pendekatan parsing dinamis tidak menyediakan keamanan tipe yang sama dengan menggunakan model yang telah didefinisikan, sehingga pemeriksaan tipe tidak dapat dilakukan pada saat kompilasi. Selanjutnya, dalam pengembangan, kehilangan bantuan IDE dalam otomasi kode, penjelasan tipe, dan refaktorisasi dapat menjadi kendala. Selain itu, kemungkinan bug pada waktu eksekusi dapat muncul karena kesalahan mungkin tidak terdeteksi sampai aplikasi berjalan. Terakhir, tanpa model, kode dapat menjadi lebih sulit dipahami karena tidak memberikan pandangan cepat tentang struktur data yang diharapkan.
+
+<br>
+
+2. Kelas CookieRequest berfungsi sebagai pembuat dan pengelola permintaan HTTP yang melibatkan penggunaan cookie. Kelas ini digunakan untuk mengirim permintaan ke server yang memerlukan informasi cookie untuk tujuan otentikasi atau sesi. Dalam konteks aplikasi Flutter, penting untuk membagikan instance CookieRequest ke seluruh komponen agar informasi cookie dapat diakses dan digunakan secara seragam di seluruh aplikasi. Dengan membagikan instance ini, semua komponen dapat menggunakan objek yang sama untuk mengirim permintaan HTTP dengan pengaturan cookie yang serupa.
+
+    Hal ini penting untuk dilakukan karena ketika aplikasi berkomunikasi dengan server, informasi cookie yang diterima dari respons server perlu disimpan dan diterapkan dalam permintaan lanjutan. Jika masing-masing komponen memiliki instance CookieRequest yang berbeda, dapat timbul masalah dalam hal otentikasi atau manajemen sesi. Dengan berbagi instance CookieRequest di antara semua komponen, kita memastikan bahwa semua komponen menggunakan informasi cookie yang serupa. Pendekatan ini memastikan konsistensi dalam hal otentikasi atau sesi di seluruh aplikasi.
+
+<br>
+
+3. Untuk mengambil data JSON dan menampilkan hasilnya di Flutter, langkah-langkah yang harus dilakukan adalah sebagai berikut:
+
+    * Membaca Data JSON: Mulai dengan mengambil data JSON dari sumbernya, yang bisa berupa endpoint API, file JSON lokal, atau sumber data lainnya. Untuk mengakses API endpoint, gunakan package http untuk mengirim permintaan HTTP dan menerima respons dalam format JSON. Kita bisa menggunakan bantuan Quicktype untuk melakukan hal tersebut. Jika menggunakan file JSON lokal, package `dart:convert` dapat digunakan untuk membaca kontennya.
+
+    * Parsing Data JSON: Setelah mendapatkan respons JSON, langkah selanjutnya adalah mem-parse data tersebut agar dapat digunakan dalam aplikasi Flutter. Package `dart:convert` dapat digunakan untuk mengubah respons JSON menjadi objek Dart yang dapat diintegrasikan ke dalam aplikasi. Sebagai contoh, metode `jsonDecode()` dapat digunakan untuk mengubah respons JSON menjadi objek Dart yang dapat dimanfaatkan.
+    
+    * Membuat Model Data: Agar penggunaan data JSON menjadi lebih efisien di aplikasi Flutter, disarankan untuk membuat model data yang sesuai dengan struktur JSON. Model data ini akan merepresentasikan entitas atau objek dalam JSON. Pembuatan kelas Dart dengan properti yang mencerminkan struktur JSON, beserta metode untuk konversi antara objek Dart dan JSON, dapat mempermudah akses dan manipulasi data.
+    
+    * Menampilkan Data di Flutter: Setelah memperoleh data JSON yang telah di-parse dan model data yang sesuai, data tersebut dapat ditampilkan di aplikasi Flutter. Widget seperti ListView, GridView, atau DataTable dapat digunakan untuk menampilkan data dalam bentuk daftar, grid, atau tabel. Properti dari objek model data dapat diakses untuk menampilkan nilai-nilai di dalam widget.
+
+<br>
+
+4. Proses autentikasi antara Flutter dan Django melibatkan serangkaian langkah-langkah. Berikut adalah langkah-langkah yang terjadi dalam proses autentikasi, mulai dari pengguna memasukkan data akun pada aplikasi Flutter hingga tampilnya menu setelah proses autentikasi oleh Django:
+
+    * Pengguna memasukkan informasi akun, seperti nama pengguna dan kata sandi, di aplikasi Flutter.
+
+    * Aplikasi Flutter mengirimkan permintaan HTTP ke server Django yang berisi data akun yang dimasukkan.
+
+    * Server Django menerima permintaan dan melakukan verifikasi terhadap data akun yang diterima menggunakan mekanisme autentikasi bawaan atau pustaka autentikasi pihak ketiga, seperti Django REST Framework.
+
+    * Jika data akun valid, Django menghasilkan token akses atau sesi yang unik untuk pengguna.
+
+    * Server Django mengirimkan token akses atau sesi sebagai respons ke aplikasi Flutter.
+
+    * Aplikasi Flutter menyimpan token akses atau sesi yang diterima untuk digunakan dalam permintaan selanjutnya.
+
+    * Setiap kali pengguna ingin mengakses menu atau fitur yang memerlukan autentikasi, aplikasi Flutter menyertakan token akses atau sesi dalam permintaan HTTP ke server Django.
+
+    * Server Django memeriksa keabsahan token akses atau sesi yang diterima dari aplikasi Flutter.
+
+    * Jika token akses atau sesi valid, server Django mengizinkan akses ke menu atau fitur yang diminta.
+
+    * Server Django mengirimkan data menu atau fitur yang diminta sebagai respons ke aplikasi Flutter.
+
+    * Aplikasi Flutter menampilkan menu atau fitur yang diterima dari server Django kepada pengguna.
+    <br>
+    
+    Dalam setiap permintaan yang dilakukan oleh aplikasi Flutter ke server Django, token akses atau sesi digunakan untuk mengidentifikasi dan mengotentikasi pengguna. Token ini memastikan bahwa hanya pengguna yang terotentikasi yang dapat mengakses menu atau fitur yang memerlukan autentikasi.
+
+<br>
+
+5. Di dalam kode saya, saya menggunakan dua widget utama, yakni `LeftDrawer` dalam `left_drawer.dart` dan `ShopCard` dalam `shop_card.dart`. `LeftDrawer` digunakan untuk menampilkan suatu left drawer di sisi kiri page untuk memilih opsi halaman selanjutnya yang dituju, sedangkan `ShopCard` merupakan widget card yang dipakai di `menu.dart` untuk mengalihkan pengunjung ke halaman `Lihat Item`, `Tambah Item`, atau `Logout`. Saya juga menonaktifkan `globals.dart` karena model "mini" yang digunakan sudah digunakan dengan model sesungguhnya yang ada di `item.dart`.
+
+6. 
+
+</details>
