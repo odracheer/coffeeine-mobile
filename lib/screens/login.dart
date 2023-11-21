@@ -13,12 +13,12 @@ const LoginApp({super.key});
 @override
 Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Login',
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-    ),
-    home: const LoginPage(),
-    );
+          title: 'Login',
+          theme: ThemeData(
+              primarySwatch: Colors.blue,
+      ),
+      home: const LoginPage(),
+      );
     }
 }
 
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                                 // Cek kredensial
                                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                                 // gunakan URL http://10.0.2.2/
-                                final response = await request.login("http://127.0.0.1:8000/json/", {
+                                final response = await request.login("http://127.0.0.1:8000/auth/login/", {
                                 'username': username,
                                 'password': password,
                                 });
