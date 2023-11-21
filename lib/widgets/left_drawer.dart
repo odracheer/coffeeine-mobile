@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:coffeeine/screens/menu.dart';
 import 'package:coffeeine/screens/coffee_form.dart';
 import 'package:coffeeine/screens/show_coffee.dart';
+import 'package:coffeeine/screens/list_item.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -53,17 +54,6 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.checklist),
-            title: const Text('Lihat Kopi'),
-            // Bagian redirection ke ShowCoffeePage
-            onTap: () {
-              Navigator.pushReplacement(
-                  context, 
-                  MaterialPageRoute(builder: (context) => const ShowCoffeePage(),
-              ));
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text('Tambah Item'),
             // Bagian redirection ke CoffeeFormPage
@@ -73,6 +63,17 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const CoffeeFormPage(),
               ));
             },
+          ),
+          ListTile(
+              leading: const Icon(Icons.shopping_basket),
+              title: const Text('Daftar Item'),
+              onTap: () {
+                  // Route menu ke halaman produk
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ItemPage()),
+                  );
+              },
           ),
         ],
       ),
