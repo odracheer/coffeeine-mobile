@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:coffeeine/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:coffeeine/widgets/left_drawer.dart';
-import 'package:coffeeine/widgets/globals.dart' as globals;
+// import 'package:coffeeine/widgets/globals.dart' as globals;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class Coffee {
-  late String name;
-  late int price;
-  late int amount;
-  late String description;
+// class Coffee {
+//   late String name;
+//   late int price;
+//   late int amount;
+//   late String description;
 
-  Coffee({required this.name, required this.price, required this.amount, required this.description});
-}
+//   Coffee({required this.name, required this.price, required this.amount, required this.description});
+// }
 
 class CoffeeFormPage extends StatefulWidget {
     const CoffeeFormPage({super.key});
