@@ -754,7 +754,7 @@ Saya telah mengerjakan bonus dengan membuat beberapa _file_ dart tambahan, yaitu
 
 3. Untuk mengambil data JSON dan menampilkan hasilnya di Flutter, langkah-langkah yang harus dilakukan adalah sebagai berikut:
 
-    * Membaca Data JSON: Mulai dengan mengambil data JSON dari sumbernya, yang bisa berupa endpoint API, file JSON lokal, atau sumber data lainnya. Untuk mengakses API endpoint, gunakan package http untuk mengirim permintaan HTTP dan menerima respons dalam format JSON. Kita bisa menggunakan bantuan Quicktype untuk melakukan hal tersebut. Jika menggunakan file JSON lokal, package `dart:convert` dapat digunakan untuk membaca kontennya.
+    * Membaca Data JSON: Mulai dengan mengambil data JSON dari sumbernya, yang bisa berupa endpoint API, file JSON lokal, atau sumber data lainnya. Untuk mengakses API endpoint, gunakan package http untuk mengirim permintaan HTTP dan menerima respons dalam format JSON. Kita bisa menggunakan bantuan `quicktype` untuk melakukan hal tersebut. Jika menggunakan file JSON lokal, package `dart:convert` dapat digunakan untuk membaca kontennya.
 
     * Parsing Data JSON: Setelah mendapatkan respons JSON, langkah selanjutnya adalah mem-parse data tersebut agar dapat digunakan dalam aplikasi Flutter. Package `dart:convert` dapat digunakan untuk mengubah respons JSON menjadi objek Dart yang dapat diintegrasikan ke dalam aplikasi. Sebagai contoh, metode `jsonDecode()` dapat digunakan untuk mengubah respons JSON menjadi objek Dart yang dapat dimanfaatkan.
     
@@ -795,6 +795,38 @@ Saya telah mengerjakan bonus dengan membuat beberapa _file_ dart tambahan, yaitu
 
 5. Di dalam kode saya, saya menggunakan dua widget utama, yakni `LeftDrawer` dalam `left_drawer.dart` dan `ShopCard` dalam `shop_card.dart`. `LeftDrawer` digunakan untuk menampilkan suatu left drawer di sisi kiri page untuk memilih opsi halaman selanjutnya yang dituju, sedangkan `ShopCard` merupakan widget card yang dipakai di `menu.dart` untuk mengalihkan pengunjung ke halaman `Lihat Item`, `Tambah Item`, atau `Logout`. Saya juga menonaktifkan `globals.dart` karena model "mini" yang digunakan sudah digunakan dengan model sesungguhnya yang ada di `item.dart`.
 
-6. 
+<br>
+
+6. Untuk mengimplementasikan _checklist_ di atas secara _step-by-step_, saya akan menjabarkan setiap poin satu per satu.
+    * **Memastikan deployment proyek tugas Django kamu telah berjalan dengan baik.**<br>
+    Untuk memastikan deployment proyek tugas Django telah berjalan dengan baik, saya melakukan pengecekan di _website_ deploy: http://ricardo-palungguk-tugas.pbp.cs.ui.ac.id/
+
+    <br>
+
+    * **Membuat halaman login pada proyek tugas Flutter.**<br>
+    Mmembuat screen baru dengan nama `login.dart` pada folder `screens` dan membuat stateful widget bernama `LoginPage`. Setelah itu, saya mengubah `home` di main.dart untuk mengarahkan ke halaman login dengan mengganti `HomePage` menjadi `LoginPage`.
+
+    <br>
+
+    * **Mengintegrasikan sistem autentikasi Django dengan proyek tugas Flutter.** <br>
+    Pertama-tama, saya membuat app baru di projek django sebelumnya dengan nama `authentication`. Lalu, saya membuat fungsi views untuk login dan logout yang berbasis JSON. Setelah itu, saya mengatur routing yang diperlukan di `urls.py` direktori `authentication` dan menambahkan path `auth` di `urls.py` direktori `coffeeine`. Kemudian, saya mengakses fungsi tersebut di file `login.dart` dengan menggunakan package `http` dan `dart:convert` untuk mengirim data ke server dan menerima responsnya.
+
+    <br>
+
+    * **Membuat model kustom sesuai dengan proyek aplikasi Django.** <br>
+    Untuk membuat model kustom, saya mendapatkan endpoint JSON terlebih dahulu dari proyek aplikasi Django sebelumnya. Lalu, saya melakukan `converting` ke JSON menggunakan aplikasi `quicktype`. Jika sudah, kita buat direktori `models` dan membuat model `Item` di file `item.dart`.
+
+    <br>
+
+    * **Membuat halaman yang berisi daftar semua item yang terdapat pada endpoint JSON di Django yang telah kamu deploy.** <br>
+    Pertama-tama, saya membuat screen baru untuk menampilkan semua data dengan nama `list_item.dart`. Setelah itu, saya membuat buat stateful widget bernama `ItemPage` dan membuat fungsi untuk melakukan fetch data di proyek django di aplikasi `main`. Setelah itu, saya melakukan iterasi data dan menampilkannya dengan menggunakan widget `FutureBuilder`.
+
+    <br>
+
+    * **Membuat halaman detail untuk setiap item yang terdapat pada halaman daftar Item.**<br>
+    Saya membuat screen baru dengan nama `details.dart` dan membuat stateful widget `ItemDetailPage`. Dalam `listbuilder` pada screen `list_item.dart`, saya menambahkan onTap untuk mengarahkan ke halaman detail tersebut. Setelah itu, saya menambahkan tombol back agar bisa kembali ke halaman sebelumnya.
+
+    <br>
+
 
 </details>
